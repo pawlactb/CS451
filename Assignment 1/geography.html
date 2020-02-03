@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Geography Problem Solution</title>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        
+    </head>
+    <body class="vscode-light">
+        <h1 id="geography-problem-solution">Geography Problem Solution</h1>
+<h2 id="tyler-pawlaczyk">Tyler Pawlaczyk</h2>
+<h3 id="student-0527039-pawlactbclarksonedu">Student #0527039 <a href="mailto:pawlactb@clarkson.edu">pawlactb@clarkson.edu</a></h3>
+<ul>
+<li>See other files in archive for source code. <a href="http://node.py">node.py</a> contains files for both problems, <a href="http://geography.py">geography.py</a> contains source specific to the geography problem.</li>
+</ul>
+<h2 id="definitions">Definitions</h2>
+<ul>
+<li>State
+<ul>
+<li>state in the geography problem is represented as two lists - a list of words to be added, and a list of words already added.</li>
+</ul>
+</li>
+<li>Initial State
+<ul>
+<li>The initial state has a populated list of words to be added, and no words added.</li>
+</ul>
+</li>
+<li>Goal Test
+<ul>
+<li>The goal test examines the list of added words and ensures that the last letter of each word is the same as the first of the next. The goal test will fail if the words to be added list is not empty.</li>
+</ul>
+</li>
+<li>Successor Function
+<ul>
+<li>the successor function will return a list of states such that the current list of words added, each with one (different) word added from the words to be added list.</li>
+</ul>
+</li>
+</ul>
+
+    </body>
+    </html>
