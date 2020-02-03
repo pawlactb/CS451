@@ -14,7 +14,7 @@ For each problem, you need to define:
 
 ----
 
-For each of the problems you must write a BFS algorithm and a DFS algorithm that uses the problem definition and tries to solve the problem.  Recall that completeness issues, time complexity and space complexity may prevent your program from solving the problem.  
+For each of the problems you must write a BFS algorithm and a DFS algorithm that uses the problem definition and tries to solve the problem.  Recall that completeness issues, time complexity and space complexity may prevent your program from solving the problem.
 
 For each problem, you must turn in the following:
 
