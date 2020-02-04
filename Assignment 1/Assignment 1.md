@@ -36,3 +36,15 @@ You have a set of words.  A list of words in legal if the last letter of each wo
 ## PCP Problem
 
 You have a set of dominoes.  Each one contains a string on the top and a string on the bottom. The problem is to find a sequence of dominoes such that the concatenation of the strings on the top gives the same string as the concatenation of all the strings on the bottom.  Dominoes may be used as many times as you want.  Assume that the first word is there.
+
+## Test Cases
+
+### Geography
+
+1. ABC, CDE, CFG, EHE, EIJ, GHK, GLC.  Initial word is ABC
+2. ABC, CDE, CFG, EHI, GJC, GKG.  Initial word is ABC
+
+### PCP
+
+1. (MOM,M) (O,OMOMO).  Initial domino is (MOM,M)
+2. (AA,A).  Initial domino is (AA, A)

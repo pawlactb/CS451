@@ -53,7 +53,7 @@ def BFS(root):
         print("Examining Node #%d: %s" % (node_num, node))
         for child in node.children:
             fringe.put(child)
-        if node.goal_check():
+        if node.goal_test():
             return node
 
 
@@ -71,22 +71,29 @@ def DFS(root):
         print("Examining Node #%d: %s" % (node_num, node))
         for child in node.children:
             fringe.put(child)
-        if node.goal_check():
+        if node.goal_test():
             return node
 
 
 def main():
-    word_set = ["apple", "egress", "state", "exit", "transformer"]
-    shuffle(word_set)
-    root_node = geography_node(word_set, [], name="root")
+    test_case_1 = ["ABC", "CDE", "CFG", "EHE", "EIJ", "GHK", "GLC"]
+    test_case_2 = ["ABC", "CDE", "CFG", "EHI", "GJC", "GKG"]
 
-    print(root_node.goal_test())
+    root_node_1 = geography_node(test_case_1, [], name="root")
+    create_finite_tree(root_node_1)
 
-    create_finite_tree(root_node)
+    print("BFS of Test Case 1:")
+    print(BFS(root_node_1))
+    print("DFS of Test Case 1:")
+    print(DFS(root_node_1))
 
-    print(BFS(root_node))
+    root_node_2 = geography_node(test_case_2, [], name="root")
+    create_finite_tree(root_node_2)
 
-    print(DFS(root_node))
+    print("BFS of Test Case 2:")
+    print(BFS(root_node_2))
+    print("DFS of Test Case 2:")
+    print(DFS(root_node_2))
 
 
 if __name__ == "__main__":

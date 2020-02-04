@@ -82,14 +82,21 @@ def DFS(root):
 
 def main():
 
-    dominoes = [("0101", "01"), ("1", "01101")]
-    root_node = pcp_node(dominoes, top="0101", bottom="01", name="root")
+    test_case_1 = [("MOM", "OM"), ("O", "OMOMO")]
+    root_node_1 = pcp_node(test_case_1, top="MOM", bottom="OM", name="root")
 
-    print(root_node.goal_test())
+    print("BFS of Test Case 1:")
+    print(BFS(root_node_1))
+    print("DFS of Test Case 1:")
+    print(DFS(root_node_1))
 
-    print(BFS(root_node))
+    test_case_2 = [("AA", "A")]
+    root_node_2 = pcp_node(test_case_2, top="AA", bottom="A", name="root")
 
-    # print(DFS(root_node))
+    print("BFS of Test Case 2:")
+    print(BFS(root_node_2))
+    print("DFS of Test Case 2:")
+    print(DFS(root_node_2))
 
 
 if __name__ == "__main__":
