@@ -21,7 +21,7 @@ def pile_helper(src, dest, state):
 
 
 class FreeCellNode(Node):
-    def __init__(self, counter, n, state=None, *args, **kwargs):
+    def __init__(self, counter, n, state=None, root=False, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.counter = counter
@@ -31,16 +31,22 @@ class FreeCellNode(Node):
             for _ in range(0, n):
                 self.state += [[]]
         else:
-            for pile in state:
-                pile.reverse()
-
             self.state = deepcopy(state)
+            if root:
+                for pile in self.state:
+                    pile.reverse()
 
     def __lt__(self, other):
         return len(self.path) < len(other.path)
 
     def __str__(self):
         return ("Counter: %d State: %s Path: %s" % (self.counter, str(self.state), str(self.path)))
+
+    def __eq__(self, other):
+        for pile in self.state:
+            if pile not in other.state:
+                return False
+        return True
 
     def is_valid(self):
         return True
@@ -71,7 +77,7 @@ class FreeCellNode(Node):
                 # discard
                 if pile[-1] == self.counter:
                     successors.append(FreeCellNode(
-                        counter=self.counter - 1,
+                        counter=int(self.counter - 1),
                         n=len(self.state),
                         state=pile_helper(
                             pile_num, None, self.state),
@@ -81,7 +87,7 @@ class FreeCellNode(Node):
                 # we can place anything on top of an empty pile
                 if len(other_pile) == 0:
                     successors.append(FreeCellNode(
-                        counter=self.counter,
+                        counter=int(self.counter),
                         n=len(self.state),
                         state=pile_helper(
                             pile_num, other_pile_num, self.state),
@@ -92,7 +98,7 @@ class FreeCellNode(Node):
                 # place a lesser block on top of the top block of another pile
                 elif pile[-1] <= other_pile[-1] or 0:
                     successors.append(FreeCellNode(
-                        counter=self.counter,
+                        counter=int(self.counter),
                         n=len(self.state),
                         state=pile_helper(
                             pile_num, other_pile_num, self.state),
@@ -107,21 +113,48 @@ class FreeCellNode(Node):
         return len(self.path)
 
 
+def cost_fn(n): return n.cost()
+
+
+def dominating_heuristic(node):
+    pile_with_next = [
+        pile for pile in node.state if node.counter in pile][0]
+    return len(
+        pile_with_next) - (pile_with_next.index(node.counter) + 1) + 1
+
+
+def dominated_heuristic(node):
+    return sum([len(pile) for pile in node.state])
+
+
 if __name__ == "__main__":
-    root = FreeCellNode(counter=6, n=3, state=[
-        [], [], [5, 4, 3, 2, 1, 6]], path=[])
+    # test case structure: ([piles], n, counter)
+    test_cases = [([[], [], [4, 5, 1, 2, 6, 7, 10, 9, 3, 8]], 3, 10),
+                  ([[2, 11, 4], [3, 12, 6, 1], [7, 8, 9], [10, 5]], 4, 12)]
 
-    def cost_fn(n): return n.cost()
+    test_case = 0
 
-    def dominating_heuristic(node):
-        return sum([len(pile) for pile in node.state])
+    for state, n, counter in test_cases:
+        test_case += 1
+        print("\nTest Case: %d" % (test_case))
 
-    def simple_heuristic(node): return 1
+        root = FreeCellNode(counter=counter, n=n,
+                            state=state, path=[], root=True)
+        print(root)
+        print("Running A* using the Dominating Heuristic:")
+        try:
+            print("Node: %s\n Total Nodes Examined: %d" %
+                  (a_star(root, dominating_heuristic, cost_fn)))
+        except TypeError:
+            print("No Solution Found.")
+            del root
+            continue
 
-    print("Running A* using the Dominating Heuristic:")
-    print("Node: %s\n Total Nodes Examined: %d" %
-          (a_star(root, dominating_heuristic, cost_fn)))
+        print("Running A* using the Dominated Heuristic:")
+        try:
+            print("Node: %s\n Total Nodes Examined: %d" %
+                  (a_star(root, dominated_heuristic, cost_fn)))
+        except TypeError:
+            print("No solution Found.")
 
-    print("Running A* using the Dominated Heuristic:")
-    print("Node: %s\n Total Nodes Examined: %d" %
-          (a_star(root, simple_heuristic, cost_fn)))
+        del root
