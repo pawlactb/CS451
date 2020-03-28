@@ -4,11 +4,15 @@ from copy import deepcopy
 class Node(object):
     def __init__(self, name=None, parent=None, path=None):
         self.parent = parent
-        self.fringe = []
-        self.path = deepcopy(path)
+        # self.fringe = []
         self.total_path_cost = 0
         self.name = name
         self.children = []
+
+        if path is not None:
+            self.path = deepcopy(path)
+        else:
+            self.path = []
 
     def register_child(self, child):
         self.children.append(child)

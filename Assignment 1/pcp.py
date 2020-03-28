@@ -1,19 +1,19 @@
-from node import Node, expand_node
-from random import shuffle
-from copy import deepcopy
+from search import BFS, DFS
 from queue import Queue, LifoQueue
+from copy import deepcopy
+from random import shuffle
+from node import Node
 
 
 class pcp_node(Node):
     def __init__(self, dominoes, top=None, bottom=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.dominoes = dominoes
-        self.top = top
-        self.bottom = bottom
+        self.dominoes = deepcopy(dominoes)
+        self.top = str(top)
+        self.bottom = str(bottom)
 
     def __str__(self):
-        return "PCP Node\n" + ("parent: %s\n" % (self.parent.name if self.parent else "root")) + ("top: %s, bottom: %s\n" %
-                                                                                                  (self.top, self.bottom))
+        return ("top: %s, bottom: %s" % (self.top, self.bottom))
 
     def goal_test(self):
         return self.top == self.bottom
@@ -26,7 +26,7 @@ class pcp_node(Node):
                 top=(self.top + top),
                 bottom=(self.bottom + bottom),
                 parent=self,
-                action_generated=(top, bottom)))
+                path=self.path + [(top, bottom)]))
         return next
 
 
@@ -36,67 +36,27 @@ def traverse(root):
         traverse(node)
 
 
-def BFS(root):
-    node_num = 0
-    fringe = Queue()
-
-    # expand root
-    expand_node(root)
-
-    # put the root on the fringe
-    fringe.put(root)
-
-    # in BFS, we treat the fringe as a FIFO queue
-    while not fringe.empty() and node_num < 40:
-        node = fringe.get()
-        node_num += 1
-        expand_node(node)
-        print("Examining Node #%d: %s" % (node_num, node))
-        for child in node.children:
-            fringe.put(child)
-        if node.goal_test():
-            return node
-
-
-def DFS(root):
-    node_num = 0
-    fringe = LifoQueue()
-
-    # expand root
-    expand_node(root)
-
-    # put the root on the fringe
-    fringe.put(root)
-
-    # in DFS, we treat the fringe as a LIFO queue
-    while not fringe.empty() and node_num < 40:
-        node = fringe.get()
-        node_num += 1
-        expand_node(node)
-        print("Examining Node #%d: %s" % (node_num, node))
-        for child in node.children:
-            fringe.put(child)
-        if node.goal_test():
-            return node
-
-
 def main():
 
-    test_case_1 = [("MOM", "OM"), ("O", "OMOMO")]
-    root_node_1 = pcp_node(test_case_1, top="MOM", bottom="OM", name="root")
+    test_case_1 = [("MOM", "M"), ("O", "OMOMO")]
+    root_node_1 = pcp_node(test_case_1, top="MOM", bottom="M", name="root")
 
     print("BFS of Test Case 1:")
-    print(BFS(root_node_1))
+    print("Result of BFS on Test Case 1: %s, nodes visited: %d\n" %
+          (BFS(root_node_1, node_count_max=128)))
     print("DFS of Test Case 1:")
-    print(DFS(root_node_1))
+    print("Result of DFS on Test Case 1: %s, nodes visited: %d\n" %
+          (DFS(root_node_1, node_count_max=128)))
 
     test_case_2 = [("AA", "A")]
     root_node_2 = pcp_node(test_case_2, top="AA", bottom="A", name="root")
 
     print("BFS of Test Case 2:")
-    print(BFS(root_node_2))
+    print("Result of BFS on Test Case 2: %s, nodes visited: %d\n" %
+          (BFS(root_node_2, node_count_max=128)))
     print("DFS of Test Case 2:")
-    print(DFS(root_node_2))
+    print("Result of DFS on Test Case 2: %s, nodes visited: %d\n" %
+          (DFS(root_node_2, node_count_max=128)))
 
 
 if __name__ == "__main__":

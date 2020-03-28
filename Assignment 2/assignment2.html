@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>CS451/CS551/EE565 Homework 2 - due Sunday February 16, 2020</title>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        
+    </head>
+    <body class="vscode-light">
+        <h1 id="cs451cs551ee565-homework-2---due-sunday-february-16-2020">CS451/CS551/EE565 Homework 2 - due Sunday February 16, 2020</h1>
+<p>You need to solve the following two problems in a programming language of your choice:</p>
+<ol>
+<li>My free cell problem</li>
+<li>Parking lot problem</li>
+</ol>
+<p>For each problem, you need to define:</p>
+<ol>
+<li>State</li>
+<li>Initial State</li>
+<li>Goal Test</li>
+<li>Successor Function</li>
+<li>2 Heuristic Functions</li>
+</ol>
+<p>For each of the problems you must write an A* algorithm that uses the problem definition and tries to solve the problem.  For each problem, I want you to define two admissible heuristics, one simple one, and another one that dominates the first one.</p>
+<p>For each problem, you must turn in the following:</p>
+<ol>
+<li>Your code.</li>
+<li>An English description of state, initial state, goal test, successor function and 2 heuristics.</li>
+<li>Program output of the solutions to the test problems that I will give you later.  For each problem there will be two outputs, one for each heuristic.  The output should show the solution to the problem, the path cost of the solution, and the number of nodes that A* examined.</li>
+</ol>
+<p>Here is a description of each of the problems:</p>
+<h2 id="freecell">Freecell</h2>
+<p>The problem contains blocks numbered 1 to n, one block for each number.
+A state of the problem contains the following:</p>
+<ul>
+<li>A counter n.</li>
+<li>Several piles of blocks, each pile contains 0 to n blocks, with each block appearing exactly once.</li>
+</ul>
+<p>The successor function will do one of the following things:</p>
+<ul>
+<li>Take the block on top of some pile, and place it on top of another pile, such that it is placed directly on a smaller numbered block.</li>
+<li>Take the block on top of some pile and place it on an empty pile.</li>
+<li>Take the block on top of some pile and throw it away, assuming that the number on the block matches the counter, then decrement the counter.</li>
+</ul>
+<p>The problem is solved when the counter is 0, equivalently when there are no blocks left.
+Any valid state could be an initial configuration.</p>
+<h2 id="parking-lot-problem">Parking lot Problem</h2>
+<p>You have an nxn grid. There are several cars in the grid, each car occupies two or more contiguous positions in the grid, either horizontally or vertically.  One of the cars is yours.  There is a specific position in the grid considered to be the finish.  On each step, you can move some car (either your car or one of the others) forward one space or backward one space (but not sideways), as long as no other car is there.  You have won the game when your car touches the finish position.</p>
+<p>I will give you my test cases after you turn in your assignment.  For now, here are some small test cases to make sure you understand what the problems are.  You can use whatever input format you like:</p>
+<h2 id="test-cases">Test Cases</h2>
+<h3 id="freecell-1">FreeCell</h3>
+<p>The counter is 6.  There are three piles.  Two are empty, and one is [5,4,3,2,1,6], listed from top to bottom.</p>
+<h3 id="parking-lot">Parking lot</h3>
+<p>The grid is 4x3.  Your car is at [(2,1),(3,1)].  The other cars are at [(4,1),(4,2)] and [(2,3),(3,3),(4,3)].  You want to get your car to position (4,1).</p>
+
+    </body>
+    </html>

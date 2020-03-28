@@ -1,0 +1,59 @@
+----- Otter 3.3f, August 2004 -----
+The process was started by pawlactb on cachemoney,
+Sat Mar 28 16:22:16 2020
+The command was "otter".  The process ID is 29943.
+
+set(binary_res).
+   dependent: set(factor).
+   dependent: set(unit_deletion).
+
+list(usable).
+1 [] a&b->c.
+2 [] d-> -c.
+3 [] a.
+end_of_list.
+
+list(sos).
+4 [] -b| -d.
+end_of_list.
+
+======= end of input processing =======
+
+=========== start of search ===========
+
+given clause #1: (wt=2) 4 [] -b| -d.
+
+Search stopped because sos empty.
+
+============ end of search ============
+
+-------------- statistics -------------
+clauses given                  1
+clauses generated              0
+  binary_res generated         0
+  factors generated            0
+demod & eval rewrites          0
+clauses wt,lit,sk delete       0
+tautologies deleted            0
+clauses forward subsumed       0
+  (subsumed by sos)            0
+unit deletions                 0
+factor simplifications         0
+clauses kept                   0
+new demodulators               0
+empty clauses                  0
+clauses back demodulated       0
+clauses back subsumed          0
+usable size                    4
+sos size                       0
+demodulators size              0
+passive size                   0
+hot size                       0
+Kbytes malloced              976
+
+----------- times (seconds) -----------
+user CPU time          0.01          (0 hr, 0 min, 0 sec)
+system CPU time        0.00          (0 hr, 0 min, 0 sec)
+wall-clock time        0             (0 hr, 0 min, 0 sec)
+
+Process 29943 finished Sat Mar 28 16:22:16 2020

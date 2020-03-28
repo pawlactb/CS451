@@ -10,6 +10,10 @@ def intersection(car1, car2):
     return len([spot for spot in car1 if spot in car2]) != 0
 
 
+def distance(p1, p2):
+    return abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])
+
+
 def vertical(car):
     # vertical cars all have the same x coordinate
     return all(x_coord == car[0][0] for x_coord, _ in car)
@@ -43,7 +47,7 @@ class ParkinglotNode(Node):
             self.state = deepcopy(state)
 
     def __str__(self):
-        return "My Car: %s Other Cars: %s Goal: %s" % (str(self.state[0]), str(self.state[1]), str(self.goal))
+        return "My Car: %s Other Cars: %s Goal: %s Path: %s" % (str(self.state[0]), str(self.state[1]), str(self.goal), self.path)
 
     def __lt__(self, other):
         return distance(self.state[0][0], self.goal) > distance(other.state[0][0], other.goal)
@@ -114,33 +118,62 @@ class ParkinglotNode(Node):
 
         return ret_val
 
-# def free_spots(cars, row=None, col=None, dimensions):
-#     if row == None and col == None:
-#         return [(x, y) for x, y not in cars]
-#     elif row is not None:
-#         return [(x, y) for x, y not in cars and x == row]
-#     elif col is not None:
-#         return [(x, y) for x, y not in cars and y == col]
+
+# def dominating_heuristic(node):
+#     my_car = node.state[0]
+#     other_cars = node.state[1]
+
+#     intersections = 0
+
+#     if vertical(my_car):
+#         # we're travelling in y
+#         for y in range(min(my_car[0][1], node.goal[1]), max(my_car[0][1], node.goal[1]) + 1):
+#             point = (my_car[0][0], y)
+#             for car in other_cars:
+#                 if intersection(point, car):
+#                     intersections += 1
+#     else:
+#         # we're traveling in x
+#         for x in range(min(my_car[0][0], node.goal[0]), max(my_car[0][0], node.goal[0]) + 1):
+#             point = (x, my_car[0][1])
+#             for car in other_cars:
+#                 if intersection(point, car):
+#                     intersections += 1
+#     return intersections
 
 
 def dominating_heuristic(node):
+    other_cars = node.state[1]
+    goal = node.goal
+
+    my_car = node.state[0]
+    my_car_closest_spot = min(my_car, key=lambda d: distance(d, goal))
+
+    cars_in_way = []
+
+    if vertical(my_car):
+        y = my_car_closest_spot[1]
+        for car in other_cars:
+            for spot in car:
+                if spot[1] == y and spot[1] in range(min(my_car_closest_spot[1], goal[0]), max(my_car_closest_spot[1], goal[1])):
+                    cars_in_way.append(car)
+    else:
+        x = my_car_closest_spot[0]
+        for car in other_cars:
+            for spot in car:
+                if spot[0] == x and spot[0] in range(min(my_car_closest_spot[0], goal[0]), max(my_car_closest_spot[0], goal[0])):
+                    cars_in_way.append(car)
+    return len(cars_in_way) + distance(my_car_closest_spot, goal)
+
+
+def dominated_heuristic(node):
     return min(distance(node.state[0][0], node.goal), distance(node.state[0][1], node.goal))
 
-# def occupied_in_row(node):
-#     if vertical(node.state[0]):
-#         for x in range(1, node.dimensions[1]):
-#             if intersection()
+
+def cost_fn(n): return len(n.path)
 
 
-def simple_heuristic(node):
-    for car in node.state[1]:
-        if intersection(car, node.goal):
-            return 1/0
-        else:
-            return 1
-
-
-if __name__ == "__main__":
+def main():
     test_no = 0
     # test case format: (my_car, other_cars, dimensions)
     test_cases = [([(1, 2), (2, 2)], [[(4, 5), (5, 5)], [(4, 1), (4, 2), (4, 3)], [(2, 4), (2, 5)]], 5, (5, 2)),
@@ -148,25 +181,24 @@ if __name__ == "__main__":
 
     for my_car, other_cars, dimensions, goal in test_cases:
         test_no += 1
-        print("Test case %d" % (test_no))
-
         initial_state = (my_car, other_cars)
+        print("\nTest Case: %d, %s" % (test_no, initial_state))
+
         root = ParkinglotNode(dimensions=dimensions, goal=goal,
                               state=initial_state, path=[])
 
         print("Root Initial State: %s" % (str(root.state)))
 
-        def cost_fn(n): return len(n.path)
-
-        def distance(p1, p2):
-            return abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])
-
-        # print("free spots: %s" % (str(free_spots(cars))))
-
         print("Running A* using the Dominating Heuristic:")
         print("Node: %s\n Total Nodes Examined: %d" %
-              (a_star(root, dominating_heuristic, cost_fn)))
+              (a_star(root, dominating_heuristic, cost_fn, node_count_max=5000)))
 
         print("Running A* using the Dominated Heuristic:")
         print("Node: %s\n Total Nodes Examined: %d" %
-              (a_star(root, simple_heuristic, cost_fn)))
+              (a_star(root, dominated_heuristic, cost_fn, node_count_max=5000)))
+
+        del root
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,13 @@
+% A simple example
+ 
+set(binary_res).
+
+list(usable).
+p | q.
+p | -q.
+-p | q.
+end_of_list.
+ 
+list(sos).
+-p | -q | -r.
+end_of_list.

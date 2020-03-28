@@ -1,0 +1,19 @@
+% Last night, there was a party.  Ann and Bill and Carl and Dave
+% were invited.  Whenever, there is a party, Carl always attends when
+% Ann and Bill attend.  But Carl will not attend if Dave attends.  We know
+% that Ann attended the party.  Prove that either Bill or Dave did not
+% attend the party.
+
+set(auto).
+
+list(usable).
+
+a & b -> c.
+d -> -c.
+a.
+
+end_of_list.
+ 
+list(sos).
+-b | -d.
+end_of_list.

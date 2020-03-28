@@ -45,4 +45,5 @@ pydevd*.log
 nodeLanguageServer/**
 nodeLanguageServer.*/**
 
-submissions/
+Submissions/*
+portmantout/*

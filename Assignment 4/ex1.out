@@ -1,0 +1,77 @@
+----- Otter 3.3f, August 2004 -----
+The process was started by pawlactb on cachemoney,
+Sat Mar 28 16:18:23 2020
+The command was "otter".  The process ID is 29702.
+
+set(binary_res).
+   dependent: set(factor).
+   dependent: set(unit_deletion).
+
+list(usable).
+1 [] p|q.
+2 [] p| -q.
+3 [] -p|q.
+end_of_list.
+
+list(sos).
+4 [] -p| -q| -r.
+end_of_list.
+
+======= end of input processing =======
+
+=========== start of search ===========
+
+given clause #1: (wt=3) 4 [] -p| -q| -r.
+** KEPT (pick-wt=2): 5 [binary,4.1,2.1,factor_simp] -q| -r.
+** KEPT (pick-wt=2): 6 [binary,4.2,3.2,factor_simp] -p| -r.
+5 back subsumes 4.
+
+given clause #2: (wt=2) 5 [binary,4.1,2.1,factor_simp] -q| -r.
+** KEPT (pick-wt=2): 7 [binary,5.1,1.2] -r|p.
+
+given clause #3: (wt=2) 6 [binary,4.2,3.2,factor_simp] -p| -r.
+** KEPT (pick-wt=2): 8 [binary,6.1,1.1] -r|q.
+
+given clause #4: (wt=2) 7 [binary,5.1,1.2] -r|p.
+** KEPT (pick-wt=1): 9 [binary,7.2,6.1,factor_simp] -r.
+9 back subsumes 8.
+9 back subsumes 7.
+9 back subsumes 6.
+9 back subsumes 5.
+
+given clause #5: (wt=1) 9 [binary,7.2,6.1,factor_simp] -r.
+
+Search stopped because sos empty.
+
+============ end of search ============
+
+-------------- statistics -------------
+clauses given                  5
+clauses generated             10
+  binary_res generated        10
+  factors generated            0
+demod & eval rewrites          0
+clauses wt,lit,sk delete       0
+tautologies deleted            2
+clauses forward subsumed       3
+  (subsumed by sos)            2
+unit deletions                 0
+factor simplifications         3
+clauses kept                   5
+new demodulators               0
+empty clauses                  0
+clauses back demodulated       0
+clauses back subsumed          5
+usable size                    4
+sos size                       0
+demodulators size              0
+passive size                   0
+hot size                       0
+Kbytes malloced              976
+
+----------- times (seconds) -----------
+user CPU time          0.01          (0 hr, 0 min, 0 sec)
+system CPU time        0.00          (0 hr, 0 min, 0 sec)
+wall-clock time        0             (0 hr, 0 min, 0 sec)
+
+Process 29702 finished Sat Mar 28 16:18:23 2020

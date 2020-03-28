@@ -31,11 +31,37 @@ The successor function lists every possible move for my_car, and for each car in
 
 #### Dominating Heuristic
 
-The dominating heuristic returns the distance from the goal to the closest part of my_car.
+    def dominating_heuristic(node):
+        other_cars = node.state[1]
+        goal = node.goal
+
+        my_car = node.state[0]
+        my_car_closest_spot = min(my_car, key=lambda d: distance(d, goal))
+
+        cars_in_way = []
+
+        if vertical(my_car):
+            y = my_car_closest_spot[1]
+            for car in other_cars:
+                for spot in car:
+                    if spot[1] == y and spot[1] in range(min(my_car_closest_spot[1], goal[0]), max(my_car_closest_spot[1], goal[1])):
+                        cars_in_way.append(car)
+        else:
+            x = my_car_closest_spot[0]
+            for car in other_cars:
+                for spot in car:
+                    if spot[0] == x and spot[0] in range(min(my_car_closest_spot[0], goal[0]), max(my_car_closest_spot[0], goal[0])):
+                        cars_in_way.append(car)
+        return len(cars_in_way) + distance(my_car_closest_spot, goal)
+
+The dominating heuristic returns the sum of the amount of cars in the way of the goal, and the distance from the closest point of the car and the goal.
 
 #### Dominated Heuristic
 
-The dominated heuristic returns infinity if there is a car in the way, and 1 otherwise. This heuristic is inadmissable in some circumstances.
+    def dominated_heuristic(node):
+        return min(distance(node.state[0][0], node.goal), distance(node.state[0][1], node.goal))
+
+The dominated heuristic returns the distance from the car to the goal.
 
 ----
 
@@ -61,8 +87,20 @@ The successor function will return a list of states possible from moving/discard
 
 #### Dominating Heuristic
 
-The dominating heuristic returns the amount of moves required to perform the next discard.
+    def dominating_heuristic(node):
+        cost = 0
+        for pile in node.state:
+            if len(pile) <= 1:
+                cost += len(pile)
+            else:
+                cost += len(pile) - 1 + len(pile)
+        return cost
+
+The dominating heuristic returns the amount of moves required to place each block in it's own pile (with an infinite amount of piles), and then discard all blocks.
 
 #### Dominated Heuristic
+
+    def dominated_heuristic(node):
+        return sum([len(pile) for pile in node.state)
 
 The dominated heuristic returns the amount of blocks left to be discarded.

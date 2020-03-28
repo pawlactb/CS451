@@ -1,0 +1,9 @@
+Root Initial State: ([(2, 1), (3, 1)], [[(4, 1), (4, 2)], [(2, 3), (3, 3), (4, 3)]])
+Running A* using the Dominating Heuristic:
+Cost: 1 My Car: [(2, 1), (3, 1)] Other Cars: [[(4, 1), (4, 2)], [(2, 3), (3, 3), (4, 3)]] Goal: (4, 1) Heuristic: 1
+Cost: 2 My Car: [(2, 1), (3, 1)] Other Cars: [[(4, 1), (4, 2)], [(1, 3), (2, 3), (3, 3)]] Goal: (4, 1) Heuristic: 1
+Cost: 3 My Car: [(1, 1), (2, 1)] Other Cars: [[(4, 1), (4, 2)], [(2, 3), (3, 3), (4, 3)]] Goal: (4, 1) Heuristic: 2
+Cost: 3 My Car: [(2, 1), (3, 1)] Other Cars: [[(1, 3), (2, 3), (3, 3)], [(4, 2), (4, 3)]] Goal: (4, 1) Heuristic: 1
+Cost: 3 My Car: [(3, 1), (4, 1)] Other Cars: [[(1, 3), (2, 3), (3, 3)], [(4, 2), (4, 3)]] Goal: (4, 1) Heuristic: 0
+Node: My Car: [(3, 1), (4, 1)] Other Cars: [[(1, 3), (2, 3), (3, 3)], [(4, 2), (4, 3)]] Goal: (4, 1)
+ Total Nodes Examined: 5

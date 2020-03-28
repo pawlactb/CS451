@@ -1,7 +1,8 @@
-from node import Node, create_finite_tree
+from node import Node
 from random import shuffle
 from copy import deepcopy
 from queue import Queue, LifoQueue
+from search import BFS, DFS
 
 
 class geography_node(Node):
@@ -20,7 +21,7 @@ class geography_node(Node):
 
         for i in range(0, len(self.words_added) - 1):
             front_word = self.words_added[i]
-            back_word = self.words_added[i+1]
+            back_word = self.words_added[i + 1]
 
             if not front_word[-1] == back_word[0]:
                 return False
@@ -39,61 +40,27 @@ class geography_node(Node):
         return next
 
 
-def BFS(root):
-    node_num = 0
-    fringe = Queue()
-
-    # put the root on the fringe
-    fringe.put(root)
-
-    # in BFS, we treat the fringe as a FIFO queue
-    while not fringe.empty():
-        node = fringe.get()
-        node_num += 1
-        print("Examining Node #%d: %s" % (node_num, node))
-        for child in node.children:
-            fringe.put(child)
-        if node.goal_test():
-            return node
-
-
-def DFS(root):
-    node_num = 0
-    fringe = LifoQueue()
-
-    # put the root on the fringe
-    fringe.put(root)
-
-    # in DFS, we treat the fringe as a LIFO queue
-    while not fringe.empty():
-        node = fringe.get()
-        node_num += 1
-        print("Examining Node #%d: %s" % (node_num, node))
-        for child in node.children:
-            fringe.put(child)
-        if node.goal_test():
-            return node
-
-
 def main():
-    test_case_1 = ["ABC", "CDE", "CFG", "EHE", "EIJ", "GHK", "GLC"]
-    test_case_2 = ["ABC", "CDE", "CFG", "EHI", "GJC", "GKG"]
+    test_case_1 = ["CDE", "CFG", "EHE", "EIJ", "GHK", "GLC"]
+    test_case_2 = ["CDE", "CFG", "EHI", "GJC", "GKG"]
 
-    root_node_1 = geography_node(test_case_1, [], name="root")
-    create_finite_tree(root_node_1)
+    root_node_1 = geography_node(test_case_1, words_added=["ABC"], name="root")
 
     print("BFS of Test Case 1:")
-    print(BFS(root_node_1))
+    print("Result of BFS on Test Case 1: %s, nodes visited: %d\n" %
+          (BFS(root_node_1, node_count_max=128)))
     print("DFS of Test Case 1:")
-    print(DFS(root_node_1))
+    print("Result of DFS on Test Case 1: %s, nodes visited: %d\n" %
+          (DFS(root_node_1, node_count_max=128)))
 
-    root_node_2 = geography_node(test_case_2, [], name="root")
-    create_finite_tree(root_node_2)
+    root_node_2 = geography_node(test_case_2, words_added=["ABC"], name="root")
 
     print("BFS of Test Case 2:")
-    print(BFS(root_node_2))
+    print("Result of BFS on Test Case 2: %s, nodes visited: %d\n" %
+          (BFS(root_node_2, node_count_max=128)))
     print("DFS of Test Case 2:")
-    print(DFS(root_node_2))
+    print("Result of DFS on Test Case 2: %s, nodes visited: %d\n" %
+          (DFS(root_node_2, node_count_max=128)))
 
 
 if __name__ == "__main__":

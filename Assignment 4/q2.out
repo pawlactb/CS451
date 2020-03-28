@@ -1,0 +1,81 @@
+----- Otter 3.3f, August 2004 -----
+The process was started by pawlactb on cachemoney,
+Sat Mar 28 16:26:41 2020
+The command was "otter".  The process ID is 30276.
+
+set(auto).
+   dependent: set(auto1).
+   dependent: set(process_input).
+   dependent: clear(print_kept).
+   dependent: clear(print_new_demod).
+   dependent: clear(print_back_demod).
+   dependent: clear(print_back_sub).
+   dependent: set(control_memory).
+   dependent: assign(max_mem, 12000).
+   dependent: assign(pick_given_ratio, 4).
+   dependent: assign(stats_level, 1).
+   dependent: assign(max_seconds, 10800).
+
+list(usable).
+0 [] -(a&b&c&d).
+0 [] a->b.
+0 [] b->c.
+0 [] c->d.
+0 [] d->a.
+end_of_list.
+
+list(sos).
+0 [] -(a|b|c|d).
+end_of_list.
+WARNING: Sos list not accepted in auto1 mode:
+         sos clauses are being moved to usable list.
+
+SCAN INPUT: prop=0, horn=1, equality=0, symmetry=0, max_lits=1.
+
+This is a Horn set without equality.  The strategy will
+be hyperresolution, with satellites in sos and nuclei
+in usable.
+
+   dependent: set(hyper_res).
+   dependent: clear(order_hyper).
+
+------------> process usable:
+** KEPT (pick-wt=7): 1 [] -(a&b&c&d).
+** KEPT (pick-wt=7): 2 [] -(a|b|c|d).
+
+------------> process sos:
+** KEPT (pick-wt=3): 3 [] a->b.
+** KEPT (pick-wt=3): 4 [] b->c.
+** KEPT (pick-wt=3): 5 [] c->d.
+** KEPT (pick-wt=3): 6 [] d->a.
+
+======= end of input processing =======
+
+=========== start of search ===========
+
+given clause #1: (wt=3) 3 [] a->b.
+
+given clause #2: (wt=3) 4 [] b->c.
+
+given clause #3: (wt=3) 5 [] c->d.
+
+given clause #4: (wt=3) 6 [] d->a.
+
+Search stopped because sos empty.
+
+============ end of search ============
+
+-------------- statistics -------------
+clauses given                  4
+clauses generated              0
+clauses kept                   6
+clauses forward subsumed       0
+clauses back subsumed          0
+Kbytes malloced              976
+
+----------- times (seconds) -----------
+user CPU time          0.00          (0 hr, 0 min, 0 sec)
+system CPU time        0.01          (0 hr, 0 min, 0 sec)
+wall-clock time        0             (0 hr, 0 min, 0 sec)
+
+Process 30276 finished Sat Mar 28 16:26:41 2020

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Assignment 2</title>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        
+    </head>
+    <body class="vscode-light">
+        <h1 id="assignment-2">Assignment 2</h1>
+<h2 id="parkinglot">Parkinglot</h2>
+<h3 id="state">state</h3>
+<p>State in this problem is a tuple.</p>
+<pre><code>(my_car, other_cars)
+</code></pre>
+<p>where each car is a list of coordinates i.e.</p>
+<pre><code>my_car = [(1,2), (2,2)]
+other_cars = [[(3,2), (2,2)], [(4,5), (5,5)]]
+</code></pre>
+<p>my_car is a singular car, other_cars is a list of cars.</p>
+<h3 id="initial-state">initial state</h3>
+<p>The initial state is the initial configuration of the board as per the test cases. Any valid state is a valid initial state.</p>
+<h3 id="goal-test">goal test</h3>
+<p>The goal checks to see if the goal coordinate is in the my_car part of state. It also checks that the state is valid to ensure we are not accidentally accepting an invalid state.</p>
+<h3 id="successor-function">successor function</h3>
+<p>The successor function lists every possible move for my_car, and for each car in other_cars, including invaid moves. The is_valid() function is used to exclude invalid states from being considered in the A* search.</p>
+<h3 id="heuristics">Heuristics</h3>
+<h4 id="dominating-heuristic">Dominating Heuristic</h4>
+<pre><code>def dominating_heuristic(node):
+    other_cars = node.state[1]
+    goal = node.goal
+
+    my_car = node.state[0]
+    my_car_closest_spot = min(my_car, key=lambda d: distance(d, goal))
+
+    cars_in_way = []
+
+    if vertical(my_car):
+        y = my_car_closest_spot[1]
+        for car in other_cars:
+            for spot in car:
+                if spot[1] == y and spot[1] in range(min(my_car_closest_spot[1], goal[0]), max(my_car_closest_spot[1], goal[1])):
+                    cars_in_way.append(car)
+    else:
+        x = my_car_closest_spot[0]
+        for car in other_cars:
+            for spot in car:
+                if spot[0] == x and spot[0] in range(min(my_car_closest_spot[0], goal[0]), max(my_car_closest_spot[0], goal[0])):
+                    cars_in_way.append(car)
+    return len(cars_in_way) + distance(my_car_closest_spot, goal)
+</code></pre>
+<p>The dominating heuristic returns the sum of the amount of cars in the way of the goal, and the distance from the closest point of the car and the goal.</p>
+<h4 id="dominated-heuristic">Dominated Heuristic</h4>
+<pre><code>def dominated_heuristic(node):
+    return min(distance(node.state[0][0], node.goal), distance(node.state[0][1], node.goal))
+</code></pre>
+<p>The dominated heuristic returns the distance from the car to the goal.</p>
+<hr>
+<h2 id="freecell">FreeCell</h2>
+<h3 id="state-1">state</h3>
+<p>Here, state is represented as a list of lists to represent the piles, and an int to represent the counter. Each internal list is a pile of blocks, used as a stack.</p>
+<h3 id="initial-state-1">initial state</h3>
+<p>Any valid state is a valid initial state.</p>
+<h3 id="goal-test-1">goal test</h3>
+<p>The goal_test() function checks to see if all of the piles are empty and that the counter is equal to zero.</p>
+<h3 id="successor-function-1">successor function</h3>
+<p>The successor function will return a list of states possible from moving/discarding the top of each pile to each other valid placement on another pile, or a valid discard.</p>
+<h3 id="heuristics-1">Heuristics</h3>
+<h4 id="dominating-heuristic-1">Dominating Heuristic</h4>
+<pre><code>def dominating_heuristic(node):
+    cost = 0
+    for pile in node.state:
+        if len(pile) &lt;= 1:
+            cost += len(pile)
+        else:
+            cost += len(pile) - 1 + len(pile)
+    return cost
+</code></pre>
+<p>The dominating heuristic returns the amount of moves required to place each block in it's own pile (with an infinite amount of piles), and then discard all blocks.</p>
+<h4 id="dominated-heuristic-1">Dominated Heuristic</h4>
+<pre><code>def dominated_heuristic(node):
+    return sum([len(pile) for pile in node.state)
+</code></pre>
+<p>The dominated heuristic returns the amount of blocks left to be discarded.</p>
+
+    </body>
+    </html>
