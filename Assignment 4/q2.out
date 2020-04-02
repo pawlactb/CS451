@@ -1,7 +1,7 @@
 ----- Otter 3.3f, August 2004 -----
 The process was started by pawlactb on cachemoney,
-Sat Mar 28 16:26:41 2020
-The command was "otter".  The process ID is 30276.
+Wed Apr  1 17:50:07 2020
+The command was "otter".  The process ID is 13609.
 
 set(auto).
    dependent: set(auto1).
@@ -17,65 +17,106 @@ set(auto).
    dependent: assign(max_seconds, 10800).
 
 list(usable).
-0 [] -(a&b&c&d).
-0 [] a->b.
-0 [] b->c.
-0 [] c->d.
-0 [] d->a.
+0 [] -a| -b| -c| -d.
+0 [] -a|b.
+0 [] -b|c.
+0 [] -c|d.
+0 [] -d|a.
 end_of_list.
 
 list(sos).
-0 [] -(a|b|c|d).
+0 [] a|b|c|d.
 end_of_list.
 WARNING: Sos list not accepted in auto1 mode:
          sos clauses are being moved to usable list.
 
-SCAN INPUT: prop=0, horn=1, equality=0, symmetry=0, max_lits=1.
+SCAN INPUT: prop=1, horn=0, equality=0, symmetry=0, max_lits=4.
 
-This is a Horn set without equality.  The strategy will
-be hyperresolution, with satellites in sos and nuclei
-in usable.
+The clause set is propositional; the strategy will be
+ordered hyperresolution with the propositional
+optimizations, with satellites in sos and nuclei in usable.
 
    dependent: set(hyper_res).
-   dependent: clear(order_hyper).
+   dependent: set(propositional).
+   dependent: set(sort_literals).
 
 ------------> process usable:
-** KEPT (pick-wt=7): 1 [] -(a&b&c&d).
-** KEPT (pick-wt=7): 2 [] -(a|b|c|d).
+** KEPT (pick-wt=4): 1 [] -a| -b| -c| -d.
+** KEPT (pick-wt=2): 2 [] -a|b.
+** KEPT (pick-wt=2): 3 [] -b|c.
+** KEPT (pick-wt=2): 4 [] -c|d.
+** KEPT (pick-wt=2): 5 [] -d|a.
 
 ------------> process sos:
-** KEPT (pick-wt=3): 3 [] a->b.
-** KEPT (pick-wt=3): 4 [] b->c.
-** KEPT (pick-wt=3): 5 [] c->d.
-** KEPT (pick-wt=3): 6 [] d->a.
+** KEPT (pick-wt=4): 6 [] a|b|c|d.
 
 ======= end of input processing =======
 
 =========== start of search ===========
 
-given clause #1: (wt=3) 3 [] a->b.
+given clause #1: (wt=4) 6 [] a|b|c|d.
 
-given clause #2: (wt=3) 4 [] b->c.
+given clause #2: (wt=3) 7 [hyper,6,5] a|b|c.
 
-given clause #3: (wt=3) 5 [] c->d.
+given clause #3: (wt=3) 8 [hyper,7,4] a|b|d.
 
-given clause #4: (wt=3) 6 [] d->a.
+given clause #4: (wt=2) 9 [hyper,8,5] a|b.
 
-Search stopped because sos empty.
+given clause #5: (wt=2) 10 [hyper,9,3] a|c.
+
+given clause #6: (wt=2) 11 [hyper,10,4] a|d.
+
+given clause #7: (wt=1) 12 [hyper,11,5] a.
+
+given clause #8: (wt=1) 13 [hyper,12,2] b.
+
+given clause #9: (wt=1) 14 [hyper,13,3] c.
+
+given clause #10: (wt=1) 15 [hyper,14,4] d.
+
+-----> EMPTY CLAUSE at   0.00 sec ----> 16 [hyper,15,1,12,13,14] $F.
+
+Length of proof is 9.  Level of proof is 9.
+
+---------------- PROOF ----------------
+
+1 [] -a| -b| -c| -d.
+2 [] -a|b.
+3 [] -b|c.
+4 [] -c|d.
+5 [] -d|a.
+6 [] a|b|c|d.
+7 [hyper,6,5] a|b|c.
+8 [hyper,7,4] a|b|d.
+9 [hyper,8,5] a|b.
+10 [hyper,9,3] a|c.
+11 [hyper,10,4] a|d.
+12 [hyper,11,5] a.
+13 [hyper,12,2] b.
+14 [hyper,13,3] c.
+15 [hyper,14,4] d.
+16 [hyper,15,1,12,13,14] $F.
+
+------------ end of proof -------------
+
+
+Search stopped by max_proofs option.
 
 ============ end of search ============
 
 -------------- statistics -------------
-clauses given                  4
-clauses generated              0
-clauses kept                   6
+clauses given                 10
+clauses generated             10
+clauses kept                  15
 clauses forward subsumed       0
-clauses back subsumed          0
+clauses back subsumed         10
 Kbytes malloced              976
 
 ----------- times (seconds) -----------
 user CPU time          0.00          (0 hr, 0 min, 0 sec)
-system CPU time        0.01          (0 hr, 0 min, 0 sec)
+system CPU time        0.00          (0 hr, 0 min, 0 sec)
 wall-clock time        0             (0 hr, 0 min, 0 sec)
 
-Process 30276 finished Sat Mar 28 16:26:41 2020
+That finishes the proof of the theorem.
+
+Process 13609 finished Wed Apr  1 17:50:07 2020

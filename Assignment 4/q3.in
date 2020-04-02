@@ -1,0 +1,26 @@
+% There was another party.  Ann and Bill and Carl and Dave
+% were invited.  There were at least two people at the party.
+% If Ann attended then everybody else attended.  And Bill always 
+% attends when Carl attends.  Prove that Bill came to the party.
+
+set(auto).
+
+list(usable).
+% (a & b) | (a & c) | (a & d) | (b & c) | (b & d) | (c & d).
+% (a | b) & (b | c) | (a | d) & (b | c) | (b | d) & (c | d).
+% (a | b | d) & (a | b | c | d) & (a | b | c) & (b | c) | (b | d) & (c | d).
+(a | b | c | d) .
+(a | b) .
+(a | c) .
+(a | d) .
+(b | c) .
+(b | d) .
+-a | b .
+c . 
+d .
+-c | b .
+end_of_list.
+ 
+list(sos).
+-b .
+end_of_list.

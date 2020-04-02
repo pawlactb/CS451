@@ -1,7 +1,7 @@
 ----- Otter 3.3f, August 2004 -----
 The process was started by pawlactb on cachemoney,
-Thu Apr  2 17:25:57 2020
-The command was "otter".  The process ID is 19663.
+Thu Apr  2 17:47:25 2020
+The command was "otter".  The process ID is 20866.
 
 set(auto).
    dependent: set(auto1).
@@ -17,19 +17,20 @@ set(auto).
    dependent: assign(max_seconds, 10800).
 
 list(usable).
-0 [] -a| -b|c.
-0 [] -d| -c.
-0 [] a.
+0 [] a|b.
+0 [] -a| -b.
+0 [] b|c.
+0 [] -b| -c.
 end_of_list.
 
 list(sos).
-0 [] b.
-0 [] d.
+0 [] -a| -c.
+0 [] a|c.
 end_of_list.
 WARNING: Sos list not accepted in auto1 mode:
          sos clauses are being moved to usable list.
 
-SCAN INPUT: prop=1, horn=1, equality=0, symmetry=0, max_lits=3.
+SCAN INPUT: prop=1, horn=0, equality=0, symmetry=0, max_lits=2.
 
 The clause set is propositional; the strategy will be
 ordered hyperresolution with the propositional
@@ -40,40 +41,44 @@ optimizations, with satellites in sos and nuclei in usable.
    dependent: set(sort_literals).
 
 ------------> process usable:
-** KEPT (pick-wt=3): 1 [] -a| -b|c.
-** KEPT (pick-wt=2): 3 [copy,2,propositional] -c| -d.
+** KEPT (pick-wt=2): 1 [] -a| -b.
+** KEPT (pick-wt=2): 2 [] -b| -c.
+** KEPT (pick-wt=2): 3 [] -a| -c.
 
 ------------> process sos:
-** KEPT (pick-wt=1): 4 [] a.
-** KEPT (pick-wt=1): 5 [] b.
-** KEPT (pick-wt=1): 6 [] d.
+** KEPT (pick-wt=2): 4 [] a|b.
+** KEPT (pick-wt=2): 5 [] b|c.
+** KEPT (pick-wt=2): 6 [] a|c.
 
 ======= end of input processing =======
 
 =========== start of search ===========
 
-given clause #1: (wt=1) 4 [] a.
+given clause #1: (wt=2) 4 [] a|b.
 
-given clause #2: (wt=1) 5 [] b.
+given clause #2: (wt=2) 5 [] b|c.
 
-given clause #3: (wt=1) 6 [] d.
+given clause #3: (wt=2) 6 [] a|c.
 
-given clause #4: (wt=1) 7 [hyper,5,1,4] c.
+given clause #4: (wt=1) 7 [hyper,6,2,4] a.
 
------> EMPTY CLAUSE at   0.00 sec ----> 8 [hyper,7,3,6] $F.
+given clause #5: (wt=1) 8 [hyper,7,3,5] b.
 
-Length of proof is 2.  Level of proof is 1.
+-----> EMPTY CLAUSE at   0.01 sec ----> 9 [hyper,8,1,7] $F.
+
+Length of proof is 2.  Level of proof is 2.
 
 ---------------- PROOF ----------------
 
-1 [] -a| -b|c.
-2 [] -d| -c.
-3 [copy,2,propositional] -c| -d.
-4 [] a.
-5 [] b.
-6 [] d.
-7 [hyper,5,1,4] c.
-8 [hyper,7,3,6] $F.
+1 [] -a| -b.
+2 [] -b| -c.
+3 [] -a| -c.
+4 [] a|b.
+5 [] b|c.
+6 [] a|c.
+7 [hyper,6,2,4] a.
+8 [hyper,7,3,5] b.
+9 [hyper,8,1,7] $F.
 
 ------------ end of proof -------------
 
@@ -83,18 +88,18 @@ Search stopped by max_proofs option.
 ============ end of search ============
 
 -------------- statistics -------------
-clauses given                  4
-clauses generated              2
-clauses kept                   6
-clauses forward subsumed       0
-clauses back subsumed          1
+clauses given                  5
+clauses generated              4
+clauses kept                   8
+clauses forward subsumed       1
+clauses back subsumed          3
 Kbytes malloced              976
 
 ----------- times (seconds) -----------
-user CPU time          0.00          (0 hr, 0 min, 0 sec)
+user CPU time          0.01          (0 hr, 0 min, 0 sec)
 system CPU time        0.00          (0 hr, 0 min, 0 sec)
 wall-clock time        0             (0 hr, 0 min, 0 sec)
 
 That finishes the proof of the theorem.
 
-Process 19663 finished Thu Apr  2 17:25:57 2020
+Process 20866 finished Thu Apr  2 17:47:25 2020

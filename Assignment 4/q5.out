@@ -1,0 +1,143 @@
+----- Otter 3.3f, August 2004 -----
+The process was started by pawlactb on cachemoney,
+Thu Apr  2 17:38:21 2020
+The command was "otter".  The process ID is 20283.
+
+set(auto).
+   dependent: set(auto1).
+   dependent: set(process_input).
+   dependent: clear(print_kept).
+   dependent: clear(print_new_demod).
+   dependent: clear(print_back_demod).
+   dependent: clear(print_back_sub).
+   dependent: set(control_memory).
+   dependent: assign(max_mem, 12000).
+   dependent: assign(pick_given_ratio, 4).
+   dependent: assign(stats_level, 1).
+   dependent: assign(max_seconds, 10800).
+
+list(usable).
+0 [] f1_m1|f1_m2|f1_m3.
+0 [] -f1_m1| -f1_m2.
+0 [] -f1_m1| -f1_m3.
+0 [] -f1_m2| -f1_m1.
+0 [] -f1_m2| -f1_m3.
+0 [] -f1_m3| -f1_m1.
+0 [] -f1_m3| -f1_m2.
+0 [] f2_m1|f2_m2|f2_m3.
+0 [] -f2_m1| -f2_m2.
+0 [] -f2_m1| -f2_m3.
+0 [] -f2_m2| -f2_m1.
+0 [] -f2_m2| -f2_m3.
+0 [] -f2_m3| -f2_m1.
+0 [] -f2_m3| -f2_m2.
+end_of_list.
+
+list(sos).
+0 [] f1_m3|f2_m3.
+0 [] f1_m2|f2_m2.
+0 [] f1_m1|f2_m1.
+end_of_list.
+WARNING: Sos list not accepted in auto1 mode:
+         sos clauses are being moved to usable list.
+
+SCAN INPUT: prop=1, horn=0, equality=0, symmetry=0, max_lits=3.
+
+The clause set is propositional; the strategy will be
+ordered hyperresolution with the propositional
+optimizations, with satellites in sos and nuclei in usable.
+
+   dependent: set(hyper_res).
+   dependent: set(propositional).
+   dependent: set(sort_literals).
+
+------------> process usable:
+** KEPT (pick-wt=2): 1 [] -f1_m1| -f1_m2.
+** KEPT (pick-wt=2): 2 [] -f1_m1| -f1_m3.
+  Following clause subsumed by 1 during input processing: 0 [propositional] -f1_m1| -f1_m2.
+** KEPT (pick-wt=2): 3 [] -f1_m2| -f1_m3.
+  Following clause subsumed by 2 during input processing: 0 [propositional] -f1_m1| -f1_m3.
+  Following clause subsumed by 3 during input processing: 0 [propositional] -f1_m2| -f1_m3.
+** KEPT (pick-wt=2): 4 [] -f2_m1| -f2_m2.
+** KEPT (pick-wt=2): 5 [] -f2_m1| -f2_m3.
+  Following clause subsumed by 4 during input processing: 0 [propositional] -f2_m1| -f2_m2.
+** KEPT (pick-wt=2): 6 [] -f2_m2| -f2_m3.
+  Following clause subsumed by 5 during input processing: 0 [propositional] -f2_m1| -f2_m3.
+  Following clause subsumed by 6 during input processing: 0 [propositional] -f2_m2| -f2_m3.
+
+------------> process sos:
+** KEPT (pick-wt=3): 7 [] f1_m1|f1_m2|f1_m3.
+** KEPT (pick-wt=3): 8 [] f2_m1|f2_m2|f2_m3.
+** KEPT (pick-wt=2): 9 [] f1_m3|f2_m3.
+** KEPT (pick-wt=2): 10 [] f1_m2|f2_m2.
+** KEPT (pick-wt=2): 11 [] f1_m1|f2_m1.
+
+======= end of input processing =======
+
+=========== start of search ===========
+
+given clause #1: (wt=3) 7 [] f1_m1|f1_m2|f1_m3.
+
+given clause #2: (wt=2) 9 [] f1_m3|f2_m3.
+
+given clause #3: (wt=2) 10 [] f1_m2|f2_m2.
+
+given clause #4: (wt=2) 11 [] f1_m1|f2_m1.
+
+given clause #5: (wt=2) 12 [hyper,10,6,9] f1_m2|f1_m3.
+
+given clause #6: (wt=3) 8 [] f2_m1|f2_m2|f2_m3.
+
+given clause #7: (wt=2) 13 [hyper,11,5,9] f1_m1|f1_m3.
+
+given clause #8: (wt=2) 14 [hyper,11,4,10] f1_m1|f1_m2.
+
+given clause #9: (wt=1) 15 [hyper,14,3,13] f1_m1.
+
+given clause #10: (wt=1) 16 [hyper,15,2,12] f1_m2.
+
+-----> EMPTY CLAUSE at   0.01 sec ----> 17 [hyper,16,1,15] $F.
+
+Length of proof is 5.  Level of proof is 3.
+
+---------------- PROOF ----------------
+
+1 [] -f1_m1| -f1_m2.
+2 [] -f1_m1| -f1_m3.
+3 [] -f1_m2| -f1_m3.
+4 [] -f2_m1| -f2_m2.
+5 [] -f2_m1| -f2_m3.
+6 [] -f2_m2| -f2_m3.
+9 [] f1_m3|f2_m3.
+10 [] f1_m2|f2_m2.
+11 [] f1_m1|f2_m1.
+12 [hyper,10,6,9] f1_m2|f1_m3.
+13 [hyper,11,5,9] f1_m1|f1_m3.
+14 [hyper,11,4,10] f1_m1|f1_m2.
+15 [hyper,14,3,13] f1_m1.
+16 [hyper,15,2,12] f1_m2.
+17 [hyper,16,1,15] $F.
+
+------------ end of proof -------------
+
+
+Search stopped by max_proofs option.
+
+============ end of search ============
+
+-------------- statistics -------------
+clauses given                 10
+clauses generated              9
+clauses kept                  16
+clauses forward subsumed       9
+clauses back subsumed          6
+Kbytes malloced              976
+
+----------- times (seconds) -----------
+user CPU time          0.01          (0 hr, 0 min, 0 sec)
+system CPU time        0.00          (0 hr, 0 min, 0 sec)
+wall-clock time        0             (0 hr, 0 min, 0 sec)
+
+That finishes the proof of the theorem.
+
+Process 20283 finished Thu Apr  2 17:38:21 2020

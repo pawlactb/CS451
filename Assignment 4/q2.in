@@ -7,15 +7,13 @@
 set(auto).
 
 list(usable).
-
--(a & b & c & d).
-a -> b.
-b -> c.
-c -> d.
-d -> a.
-
+-a | -b | -c | -d .
+-a | b.
+-b | c.
+-c | d.
+-d | a.
 end_of_list.
  
 list(sos).
--(a | b | c | d).
+a | b | c | d .
 end_of_list.

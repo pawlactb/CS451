@@ -1,0 +1,31 @@
+% Suppose there are only five people in the world.  Three of
+% the people are male and two are female.  Each female is married
+% to at most one male.  Prove that not all of the males are married. 
+% In this problem males can only marry females.
+
+set(auto).
+
+list(usable).
+f1_m1 | f1_m2 | f1_m3 .
+-f1_m1 | -f1_m2 .
+-f1_m1| -f1_m3 .
+-f1_m2 | -f1_m1 .
+-f1_m2| -f1_m3 .
+-f1_m3 | -f1_m1 .
+-f1_m3| -f1_m2 .
+
+
+f2_m1 | f2_m2 | f2_m3 .
+-f2_m1 | -f2_m2 .
+-f2_m1| -f2_m3 .
+-f2_m2 | -f2_m1 .
+-f2_m2| -f2_m3 .
+-f2_m3 | -f2_m1 .
+-f2_m3| -f2_m2 .
+end_of_list.
+ 
+list(sos).
+(f1_m3 | f2_m3) .
+(f1_m2 | f2_m2) .
+(f1_m1 | f2_m1) .
+end_of_list.

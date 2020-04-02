@@ -1,0 +1,25 @@
+% There was another party.  This time only Ann and Bill and
+% Carl were invited.  Either Ann or Bill attended, but not both.  Either
+% Bill or Carl attended, but not both.  Prove if either Ann or Carl came 
+% to the party, then both Ann and Carl came to the party.
+
+set(auto).
+
+% list(usable).
+% a | b .
+% -a | -b .
+% b | c .
+% -b | -c .
+% end_of_list.
+
+list(usable).
+a | b .
+-a | -b .
+b | c .
+-b | -c.
+end_of_list.
+ 
+list(sos).
+(-a | -c) .
+(a | c) .
+end_of_list.
