@@ -1,0 +1,30 @@
+%
+
+% Everybody has a parent.  Everybody is male or female.  A male 
+% parent of anybody is the person's father.  A female parent of anybody
+% is the person's mother.  Prove that everybody has a mother or a father.
+
+set(auto).
+
+list(usable).
+
+% everybody has a parent
+Parent(child(everybody), everybody).
+
+% everybody is male or female
+Male(x) | Female(x).
+-Male(x) | -Female(x).
+-Female(x) | -Male(x).
+
+% a male parent is a person's father
+-Parent(x, y) | -Male(x) | Father(f(y), y).
+
+% a female parent is a person's mother
+-Parent(x, y) | -Female(x) | Mother(m(y), y).
+
+end_of_list.
+
+list(sos).
+-Mother(x, everybody).
+-Father(x, everybody).
+end_of_list.
