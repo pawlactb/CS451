@@ -1,0 +1,37 @@
+% Problem 3
+
+set(auto).
+
+list(usable).
+% If a number divides another number, then it is smaller than that number.
+% (Example: 6 divides 24, so 6 is smaller than 24)
+-divides(x, y) | x < y.
+
+% A number is smaller than its successor.
+% (Example: 14 is smaller than 15)
+x < succ(x).
+
+% No number is less than itself.
+% (Example: 5 is not less than 5)
+-(x < x). 
+
+% Less than is transitive.
+% (Example: 13 < 14 and 14 < 15.  Therefore 13 < 15)
+% -(x < y) | -(y < z) | x == y | y == z | x == z | x < z.
+-(x < y) | -(y < z) | (x < z).
+
+% If a number divides another number, then it does not divide the successor
+% of the number.
+% (Example: 2 divides 14, therefore 2 does not divide 15)
+-divides(x, y) | -divides(x, succ(y)).
+
+% If a number is not prime, then some prime number divides it.
+% (Example: 15 is not prime, so 3 divides 15)
+prime(y) | divides(prime(x), y).
+
+end_of_list.
+
+list(sos).
+% Prove:  There exists no number that is a product of all the primes.
+divides(prime(x), prime(y)).
+end_of_list.
