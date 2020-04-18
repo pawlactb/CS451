@@ -18,11 +18,8 @@ L(somebody, everybody).
 % and is loved by everybody.
 L(everybody, somebody).
 
-% does he love himself?
-L(somebody, somebody).
-
 end_of_list.
 
 list(sos).
--everybody.
+-L(everybody, everybody).
 end_of_list.
