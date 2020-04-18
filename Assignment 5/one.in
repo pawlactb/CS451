@@ -1,0 +1,28 @@
+% Problem 1
+
+% There is somebody who loves everybody and is loved by everybody.
+% Love is transitive (i.e., if a person loves somebody else, and that
+% person loves a third person, then the first person loves the third
+% person)  Prove that everybody loves everybody.
+
+set(auto).
+
+list(usable).
+
+% transitivity
+-L(x, y) | - L(y, z) | L(x, z).
+
+% There is somebody who loves everybody
+L(somebody, everybody).
+
+% and is loved by everybody.
+L(everybody, somebody).
+
+% does he love himself?
+L(somebody, somebody).
+
+end_of_list.
+
+list(sos).
+-everybody.
+end_of_list.
